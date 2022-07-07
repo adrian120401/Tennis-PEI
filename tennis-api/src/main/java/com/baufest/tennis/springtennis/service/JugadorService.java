@@ -63,4 +63,6 @@ public interface JugadorService {
 	void delete(Long id);
 
 	JugadorDTO recalculateRanking(Long id);
+
+	int gananciasGanadas(Long id);
 }
