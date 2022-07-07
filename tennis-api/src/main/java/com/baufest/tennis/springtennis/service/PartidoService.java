@@ -80,4 +80,6 @@ public interface PartidoService {
 	 * @return PartidoDTO
 	 */
 	PartidoDTO sumarPuntos(Long id, ModoJugador modo);
+
+	List<PartidoDTO> partidosTorneo(List<PartidoDTO> partidos);
 }

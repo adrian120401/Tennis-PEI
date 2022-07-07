@@ -3,6 +3,7 @@ package com.baufest.tennis.springtennis.controller;
 import com.baufest.tennis.springtennis.dto.PartidoDTO;
 import com.baufest.tennis.springtennis.enums.ModoJugador;
 import com.baufest.tennis.springtennis.service.PartidoService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,6 +106,13 @@ public class PartidoController {
     @PutMapping(value = "/{id}/actions/init")
     public ResponseEntity<Void> initGame(@PathVariable Long id) {
         partidoService.initGame(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = "/actions/torneo")
+    public ResponseEntity<PartidoDTO> partidosTorneo(@RequestBody List<PartidoDTO> partidos) {
+        List<PartidoDTO> savedPartidos = partidoService.partidosTorneo(partidos);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

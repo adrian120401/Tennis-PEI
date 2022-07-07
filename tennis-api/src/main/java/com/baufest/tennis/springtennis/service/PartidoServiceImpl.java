@@ -170,6 +170,15 @@ public class PartidoServiceImpl implements PartidoService {
         return this.partidoMapper.toDTO(partidoRepository.save(this.partidoMapper.fromDTO(partido)));
     }
 
+    //La funcion va a recorrer la lista de partidos que se ingrese y los va a guardar
+    @Override
+    public List<PartidoDTO> partidosTorneo(List<PartidoDTO> partidos) {
+        for (PartidoDTO p : partidos) {
+            save(p);
+        }
+        return partidos;
+    }
+
     private void validarPartidoNoIniciado(Long id) {
         /*
         * En este metodo se valida el partido no iniciado, se obtiene el partido por el id recibido por parametro
@@ -329,5 +338,7 @@ public class PartidoServiceImpl implements PartidoService {
         }
 
     }
+
+
 
 }
