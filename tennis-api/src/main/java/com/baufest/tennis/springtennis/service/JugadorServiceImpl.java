@@ -142,20 +142,20 @@ public class JugadorServiceImpl implements JugadorService {
         }
     }
 
-    @Override
-    public int gananciasGanadas(Long id){
-        Optional<Jugador> optJugador = jugadorRepository.findById(id);
-        if (optJugador.isPresent()) {
-            Jugador jugador = optJugador.get();
-
-            List<Partido> partidos = partidoRepository.findAll();
-
-            //va a devolver un int con la ganancias con la lista de todos los partidos y el jugador especificado
-            return gananciasGanadasLocalVisitante(id,partidos);
-        }else {
-            throw new NoSuchElementException(PLAYER_WITH_ID + id + DOES_NOT_EXIST);
-        }
-    }
+//    @Override
+//    public int gananciasGanadas(Long id){
+//        Optional<Jugador> optJugador = jugadorRepository.findById(id);
+//        if (optJugador.isPresent()) {
+//            Jugador jugador = optJugador.get();
+//
+//            List<Partido> partidos = partidoRepository.findAll();
+//
+//            //va a devolver un int con la ganancias con la lista de todos los partidos y el jugador especificado
+//            return gananciasGanadasLocalVisitante(id,partidos);
+//        }else {
+//            throw new NoSuchElementException(PLAYER_WITH_ID + id + DOES_NOT_EXIST);
+//        }
+//    }
 
     private List<Partido> listPartidosGanadosLocalDeJugador(Long id, List<Partido> partidos) {
         List<Partido> partidosFiltrados = new ArrayList<>();
@@ -184,32 +184,34 @@ public class JugadorServiceImpl implements JugadorService {
         return partidosFiltrados;
     }
 
-    private int gananciasGanadasLocalVisitante(Long id, List<Partido> partidos) {
-        List<Partido> partidosGanancias = new ArrayList<>();
-        int ganancias=0;
-        //va a recorrer los partidos ganados de local por jugador
-        for (Partido p :listPartidosGanadosLocalDeJugador(id,partidos)) {
-                //se busca la diferencia entre el ganador y el perdedor y con un if se le suma a ganancias
-                // si no cumple las condiciones no va a pasar el primer if por lo tanto ganancias es 0
-                int diferencia = p.getCantidadGamesLocal() - p.getCantidadGamesVisitante();
-                if(diferencia >=3){
-                    ganancias += 300;
-                }
-                if(diferencia <3){
-                    ganancias += 200;
-                }
-        }
-        //En los partidos que gano de visitante va a validar la diferencia y sumarlo a ganancias
-        for(Partido p :listPartidosGanadosVisitanteDeJugador(id,partidos)){
-            //aca la diferencia va a ser al reves porque el ganador es el visitante
-            int diferencia = p.getCantidadGamesVisitante()-p.getCantidadGamesLocal() ;
-            if(diferencia >=3){
-                ganancias += 300;
-            }
-            if(diferencia <3){
-                ganancias += 200;
-            }
-        }
-        return ganancias;
-    }
+    //COMENT
+    //Entendi que la logica tenia que ir en el front asi que la traspase para ahi directamente
+//    private int gananciasGanadasLocalVisitante(Long id, List<Partido> partidos) {
+//        List<Partido> partidosGanancias = new ArrayList<>();
+//        int ganancias=0;
+//        //va a recorrer los partidos ganados de local por jugador
+//        for (Partido p :listPartidosGanadosLocalDeJugador(id,partidos)) {
+//                //se busca la diferencia entre el ganador y el perdedor y con un if se le suma a ganancias
+//                // si no cumple las condiciones no va a pasar el primer if por lo tanto ganancias es 0
+//                int diferencia = p.getCantidadGamesLocal() - p.getCantidadGamesVisitante();
+//                if(diferencia >=3){
+//                    ganancias += 300;
+//                }
+//                if(diferencia <3){
+//                    ganancias += 200;
+//                }
+//        }
+//        //En los partidos que gano de visitante va a validar la diferencia y sumarlo a ganancias
+//        for(Partido p :listPartidosGanadosVisitanteDeJugador(id,partidos)){
+//            //aca la diferencia va a ser al reves porque el ganador es el visitante
+//            int diferencia = p.getCantidadGamesVisitante()-p.getCantidadGamesLocal() ;
+//            if(diferencia >=3){
+//                ganancias += 300;
+//            }
+//            if(diferencia <3){
+//                ganancias += 200;
+//            }
+//        }
+//        return ganancias;
+//    }
 }

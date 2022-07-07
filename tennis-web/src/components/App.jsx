@@ -10,7 +10,7 @@ import JugarPartido from '../containers/JugarPartido/JugarPartido';
 import Cancha from '../containers/Cancha/Cancha';
 import About from '../containers/About/About';
 import NotFound from '../containers/NotFound/NotFound';
-import Entrenador from './containers/Entrenador/Entrenador'
+import Entrenador from '../containers/Entrenador/Entrenador'
 
 class App extends React.Component {
   render() {

@@ -93,12 +93,12 @@ public class JugadorController {
         jugadorService.recalculateRanking(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    //metodo para pasarlo al front
-    @GetMapping(value = "/{id}/actions/ganancias")
-    public ResponseEntity<Void> gananciasGanadas(@PathVariable Long id) {
-        jugadorService.gananciasGanadas(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    //metodo para pasarlo al front
+//    @GetMapping(value = "/{id}/actions/ganancias")
+//    public ResponseEntity<Void> gananciasGanadas(@PathVariable Long id) {
+//        jugadorService.gananciasGanadas(id);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }
 	

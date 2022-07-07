@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import {Form, Button, Modal} from 'react-bootstrap';
 import FormRowInput from "../FormRow/FormRowInput";
+import FormRowSelect from '../FormRow/FormRowSelect';
 
 const JugadorModal = (props) => {
     const formRef = useRef(null);

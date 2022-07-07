@@ -64,5 +64,5 @@ public interface JugadorService {
 
 	JugadorDTO recalculateRanking(Long id);
 
-	int gananciasGanadas(Long id);
+//	int gananciasGanadas(Long id);
 }

@@ -15,7 +15,8 @@ let jugadorInit = {
 
 const Jugador = (props) => {
   const [jugadoresList, setJugadoresList] = useState([]);
-  const [entrenadorList,setEntrenadorList] = useState([])
+  const [entrenadorList,setEntrenadorList] = useState([]);
+  const [partidoList,setPartidosList] = useState([]);
   const [jugadorData, setJugadorData] = useState(jugadorInit);
   const [isEdit, setIsEdit] = useState(false);
   const [hasErrorInForm, setHasErrorInForm] = useState(false);
@@ -25,6 +26,7 @@ const Jugador = (props) => {
   useEffect(async () => {
     await getJugadores();
     await getEntrenadores();
+    await getPartidos();
   }, []);
 
   //Verbos
@@ -41,6 +43,16 @@ const Jugador = (props) => {
     try {
       const data = await httpClient.get('/entrenadores');
       setEntrenadorList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  //partidos
+
+  const getPartidos = async () => {
+    try {
+      const data = await httpClient.get('/partidos');
+      setPartidosList(data);
     } catch (error) {
       console.log(error);
     }
@@ -119,25 +131,27 @@ const Jugador = (props) => {
   };
 
   // Form
-  const handleChangeInputForm = (property, value) => {
-    (value === '') ? setHasErrorInForm(true) : setHasErrorInForm(false);
+const handleChangeInputForm = (property, value) => {
+  value === '' ? setHasErrorInForm(true) : setHasErrorInForm(false);
 
-    const newData = { ...jugadorData }
+  const newData = { ...jugadorData };
 
-    if(value !== ''){
-      switch (property) {
-          case 'nombre':
-              newData.nombre = value;
-          case 'puntos':
-                newData.puntos = value;
-          case 'entrenador':
-                newData.entrenador = entrenadorList.filter((x) => x.id === parseInt(value))[0];
-          default:
-            break;
-        }    
-      }
-    setJugadorData(newData);
-}
+  switch (property) {
+    case 'entrenador':
+      newData.entrenador = entrenadorList.filter((x) => x.id === parseInt(value))[0];
+      break;
+    case 'nombre':
+      newData.nombre = value;
+      break;
+    case 'puntos':
+      newData.puntos = value;
+      break;
+    default:
+      break;
+  }
+
+  setJugadorData(newData);
+};
 
   const handleSubmitForm = (e, form, isEdit) => {
     e.preventDefault();
@@ -148,10 +162,38 @@ const Jugador = (props) => {
 
   // API
 
-  const handleGananciasGanadas = async() => {
-    const ganancias = await httpClient.get(`/jugadores/${id}/actions/gananciasGanadas`)
-    return ganancias;
+  const gananciasGanadas = (id) =>{
+    const partidos = [... partidoList]
+    let ganancias = 0
+    partidos.map(partido => partido.estado == "FINALIZADO")
+    partidos.forEach(p => {
+      //para el visitante y sus partidos ganados
+      if(p.jugadorVisitante.id == id && p.cantidadGamesVisitante == 6){
+        let diferencia =p.cantidadGamesVisitante - p.cantidadGamesLocal ;
+        if(diferencia >=3){
+            ganancias += 300;
+        }
+        if(diferencia <3){
+            ganancias += 200;
+        }
+      }
+      //para el local y sus partidos ganados
+      if(p.jugadorLocal.id == id && p.cantidadGamesLocal == 6){
+        let diferencia =p.cantidadGamesLocal - p.cantidadGamesVisitante;
+        if(diferencia >=3){
+            ganancias += 300;
+        }
+        if(diferencia <3){
+            ganancias += 200;
+        }
+      }
+      console.log(ganancias)
+     
+    });
+     return ganancias
   }
+  console.log(partidoList)
+
 
   return (
     <>
@@ -166,7 +208,7 @@ const Jugador = (props) => {
         edit={handleEdit}
         delete={(id, event) => handleDelete(id, event)}
         recalcularRanking={handleRecalculateRanking}
-        ganancias = {ganancias}
+        ganancias = {gananciasGanadas}
       />
       <JugadorModal
         show={openModal}
