@@ -8,10 +8,14 @@ import httpClient from '../../lib/httpClient';
 let jugadorInit = {
   nombre: '',
   puntos: 0,
+  entrenador: {
+    id: 0,
+  },
 };
 
 const Jugador = (props) => {
   const [jugadoresList, setJugadoresList] = useState([]);
+  const [entrenadorList,setEntrenadorList] = useState([])
   const [jugadorData, setJugadorData] = useState(jugadorInit);
   const [isEdit, setIsEdit] = useState(false);
   const [hasErrorInForm, setHasErrorInForm] = useState(false);
@@ -20,6 +24,7 @@ const Jugador = (props) => {
 
   useEffect(async () => {
     await getJugadores();
+    await getEntrenadores();
   }, []);
 
   //Verbos
@@ -31,6 +36,15 @@ const Jugador = (props) => {
       console.log(error);
     }
   };
+  //entrenadores
+  const getEntrenadores = async () => {
+    try {
+      const data = await httpClient.get('/entrenadores');
+      setEntrenadorList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const agregarJugador = async () => {
     try {
@@ -106,11 +120,24 @@ const Jugador = (props) => {
 
   // Form
   const handleChangeInputForm = (property, value) => {
-    // Si el valor del input es vacío, entonces setea que hay un error
-    value === '' ? setHasErrorInForm(true) : setHasErrorInForm(false);
+    (value === '') ? setHasErrorInForm(true) : setHasErrorInForm(false);
 
-    setJugadorData({ ...jugadorData, [property]: value });
-  };
+    const newData = { ...jugadorData }
+
+    if(value !== ''){
+      switch (property) {
+          case 'nombre':
+              newData.nombre = value;
+          case 'puntos':
+                newData.puntos = value;
+          case 'entrenador':
+                newData.entrenador = entrenadorList.filter((x) => x.id === parseInt(value))[0];
+          default:
+            break;
+        }    
+      }
+    setJugadorData(newData);
+}
 
   const handleSubmitForm = (e, form, isEdit) => {
     e.preventDefault();
@@ -144,6 +171,7 @@ const Jugador = (props) => {
         validated={hasErrorInForm}
         handleSubmit={handleSubmitForm}
         errorMsg={errorMsg}
+        entrenadorList={entrenadorList}
       />
     </>
   );

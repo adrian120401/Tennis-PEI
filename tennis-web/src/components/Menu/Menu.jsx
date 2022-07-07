@@ -15,6 +15,7 @@ const Menu = () => {
                             <Nav.Link as={Link} to="/jugador">Jugador</Nav.Link>
                             <Nav.Link as={Link} to="/partido">Partido</Nav.Link>
                             <Nav.Link as={Link} to="/cancha">Cancha</Nav.Link>
+                            <Nav.Link as={Link} to="/entrenador">Entrenador</Nav.Link>
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

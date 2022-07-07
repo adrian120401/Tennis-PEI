@@ -4,7 +4,11 @@ import FormRowInput from "../FormRow/FormRowInput";
 
 const JugadorModal = (props) => {
     const formRef = useRef(null);
-    const { show, onHide, isEdit, handleChange, jugador, validated, handleSubmit, errorMsg } = props;
+    const { show, onHide, isEdit, handleChange, jugador,entrenadorList, validated, handleSubmit, errorMsg } = props;
+
+    const entrenadores = entrenadorList.map(entrenador => {
+        return <option key={entrenador.id} value={parseInt(entrenador.id)}>{entrenador.nombre}</option>
+      })
 
     return (
         <Modal
@@ -37,6 +41,15 @@ const JugadorModal = (props) => {
                         property={'puntos'}
                         value={jugador.puntos}
                         handleChange={handleChange}
+                    />
+                    <FormRowSelect
+                    label={"Entrenador"}
+                    required={true}
+                    placeholder={"Elige un entrenador"}
+                    value={jugador.entrenador.id}
+                    handleChange={handleChange}
+                    property={'entrenador'}
+                    options={entrenadores}
                     />
 
                     {errorMsg !== '' &&
