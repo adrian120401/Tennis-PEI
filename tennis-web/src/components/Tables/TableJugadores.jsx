@@ -10,6 +10,7 @@ const TableBody = (data) => {
                 <td>{itemRow.nombre}</td>
                 <td>{itemRow.puntos}</td>
                 <td>{itemRow.entrenador.nombre}</td>
+                <td>{data.ganancias(itemRow.id)}</td>
                 <td>
                     <Button onClick={event => data.detail(itemRow, event)} variant="info">Info</Button>{' '}
                     <Button onClick={event => data.edit(itemRow, event)} variant="primary">Editar</Button>{' '}
@@ -30,6 +31,7 @@ const TableJugadores = (props) => {
                 <th>Nombre</th>
                 <th>Puntos</th>
                 <th>Entrenador</th>
+                <th>Ganancias</th>
                 <th>Acciones</th>
             </tr>
             </thead>

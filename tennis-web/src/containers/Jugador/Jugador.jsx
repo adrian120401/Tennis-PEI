@@ -148,6 +148,11 @@ const Jugador = (props) => {
 
   // API
 
+  const handleGananciasGanadas = async() => {
+    const ganancias = await httpClient.get(`/jugadores/${id}/actions/gananciasGanadas`)
+    return ganancias;
+  }
+
   return (
     <>
       <Typography id={'title-id'}>Jugador</Typography>
@@ -161,6 +166,7 @@ const Jugador = (props) => {
         edit={handleEdit}
         delete={(id, event) => handleDelete(id, event)}
         recalcularRanking={handleRecalculateRanking}
+        ganancias = {ganancias}
       />
       <JugadorModal
         show={openModal}
