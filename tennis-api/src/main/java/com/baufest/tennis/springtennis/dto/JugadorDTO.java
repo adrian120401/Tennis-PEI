@@ -24,6 +24,8 @@ public class JugadorDTO {
 
 	private int puntos;
 
+	private EntrenadorDTO entrenador;
+
 	/* Los constructores se utilizan al momento de instanciar nuesta clase y darle espacio en memoria,
 	 * los atributos de nuesta clase que no contengan instanciacion en el constructor quedaran con valor null
 	 * los constructores pueden ser overraideados y contener instanciaciones para varios atributos distintos o
@@ -41,6 +43,14 @@ public class JugadorDTO {
 		this.nombre = nombre;
 		this.puntos = puntos;
 	}
+
+	public JugadorDTO(Long id, String nombre, int puntos,EntrenadorDTO entrenador) {
+		this.id = id;
+		this.nombre = nombre;
+		this.puntos = puntos;
+		this.entrenador=entrenador;
+	}
+
 
 	/* Getters & Setters */
 
@@ -75,6 +85,14 @@ public class JugadorDTO {
 		this.puntos = puntos;
 	}
 
+	public EntrenadorDTO getEntrenador() {
+		return entrenador;
+	}
+
+	public void setEntrenador(EntrenadorDTO entrenador) {
+		this.entrenador = entrenador;
+	}
+
 	/* Metodo para retornar nuestro objeto en un formato JSON */
 	/*Este metodo es muy utilizado para poder transformar el objeto a JSON en caso de ser necesario para retorno*/
 
@@ -83,7 +101,9 @@ public class JugadorDTO {
 		jo.put("id",getId());
 		jo.put("nombre",getNombre());
 		jo.put("puntos",getPuntos());
+		jo.put("entrenador",getEntrenador());
 		return jo;
 	}
+
 
 }

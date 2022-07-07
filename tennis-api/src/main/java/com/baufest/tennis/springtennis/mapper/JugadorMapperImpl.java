@@ -2,6 +2,7 @@ package com.baufest.tennis.springtennis.mapper;
 
 import com.baufest.tennis.springtennis.dto.JugadorDTO;
 import com.baufest.tennis.springtennis.model.Jugador;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,13 @@ public class JugadorMapperImpl implements JugadorMapper {
      * y en base a el parametro recibido genera una nueva instancia
      * de jugador DTO.*/
 
+    private final EntrenadorMapper entrenadorMapper;
+
+    @Autowired
+    public JugadorMapperImpl(EntrenadorMapper entrenadorMapper) {
+        this.entrenadorMapper = entrenadorMapper;
+    }
+
     @Override
     public JugadorDTO toDTO(Jugador entity) {
         if ( entity == null ) {
@@ -26,6 +34,7 @@ public class JugadorMapperImpl implements JugadorMapper {
         jugadorDTO.setId( entity.getId() );
         jugadorDTO.setNombre( entity.getNombre() );
         jugadorDTO.setPuntos( entity.getPuntos() );
+        jugadorDTO.setEntrenador(entrenadorMapper.toDTO(entity.getEntrenador()));
 
         return jugadorDTO;
     }
@@ -43,6 +52,7 @@ public class JugadorMapperImpl implements JugadorMapper {
         jugador.setId( entity.getId() );
         jugador.setNombre( entity.getNombre() );
         jugador.setPuntos( entity.getPuntos() );
+        jugador.setEntrenador(entrenadorMapper.fromDTO(entity.getEntrenador()));
 
         return jugador;
     }

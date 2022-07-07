@@ -38,6 +38,10 @@ public class Jugador{
 	@Column(nullable = false)
 	private int puntos;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idEntrenador", nullable = false)
+	private Entrenador entrenador;
+
 	/* Construtores de nuestro modelo de dato */
 
 	/* Los constructores se utilizan al momento de instanciar nuesta clase y darle espacio en memoria,
@@ -55,6 +59,13 @@ public class Jugador{
 		this.id = id;
 		this.nombre = nombre;
 		this.puntos = puntos;
+	}
+
+	public Jugador(Long id, String nombre, int puntos, Entrenador entrenador) { //Aca un constructor con tres parametros instanciados
+		this.id = id;
+		this.nombre = nombre;
+		this.puntos = puntos;
+		this.entrenador=entrenador;
 	}
 
 	/* Getters & Setters */
@@ -90,6 +101,14 @@ public class Jugador{
 		this.puntos = puntos;
 	}
 
+	public Entrenador getEntrenador() {
+		return entrenador;
+	}
+
+	public void setEntrenador(Entrenador entrenador) {
+		this.entrenador = entrenador;
+	}
+
 	/* Metodo para retornar nuestro objeto en un formato JSON */
 	/*Este metodo es muy utilizado para poder transformar el objeto a JSON en caso de ser necesario para retorno*/
 	public JSONObject toJSONObject() {
@@ -97,8 +116,10 @@ public class Jugador{
 		jo.put("id",getId());
 		jo.put("nombre",getNombre());
 		jo.put("puntos",getPuntos());
+		jo.put("entrenador",getEntrenador());
 		return jo;
 	}
+
 
 }
 

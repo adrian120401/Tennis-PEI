@@ -2,6 +2,7 @@ package com.baufest.tennis.springtennis.service;
 
 import com.baufest.tennis.springtennis.dto.JugadorDTO;
 import com.baufest.tennis.springtennis.enums.Estado;
+import com.baufest.tennis.springtennis.mapper.EntrenadorMapperImpl;
 import com.baufest.tennis.springtennis.mapper.JugadorMapperImpl;
 import com.baufest.tennis.springtennis.model.Cancha;
 import com.baufest.tennis.springtennis.model.Jugador;
@@ -84,7 +85,7 @@ class JugadorServiceTest {
         jugadorParaAgregar.setNombre("lucas");
         jugadorParaAgregar.setPuntos(25);
 
-        jugadorService = new JugadorServiceImpl(jugadorRepository,partidoRepository,new JugadorMapperImpl());
+        jugadorService = new JugadorServiceImpl(jugadorRepository,partidoRepository,new JugadorMapperImpl(new EntrenadorMapperImpl()));
 
     }
 
