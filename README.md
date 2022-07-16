@@ -3,11 +3,11 @@
 
 # Examen final - desarrollado por Adrian de los Reyes
 
-##Para ejecutarlo
-###Front (tennis-web)
+## Para ejecutarlo
+### Front (tennis-web)
 npm run start
 
-###Back (tennis-api)
+### Back (tennis-api)
 spring-boot:run desde Maven 
 Base de datos creada en Postgres automaticamente
 Tener el server creado con nombre tennis-PEI
